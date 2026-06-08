@@ -1,0 +1,33 @@
+# ── Frontend ──────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+.pnpm-store/
+
+# ── Python backend ────────────────────────────────
+backend/__pycache__/
+backend/*.pyc
+backend/.venv/
+backend/venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# HuggingFace model cache downloaded at runtime
+backend/.cache/
+backend/models/
+
+# ── Environment / secrets ─────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── OS ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
