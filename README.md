@@ -119,8 +119,18 @@ Risk score bands:
 
 ```
 INSURANCE/
+├── index.html                          # HTML shell — Vite injects the JS bundle here
+├── vite.config.ts                      # Vite build config
+├── tsconfig.json                       # TypeScript compiler settings
+├── package.json
+├── pnpm-lock.yaml
+├── .env                                # Secrets — never commit this (gitignored)
+├── .env.example                        # Template showing which env vars are needed
+├── .gitignore
+│
 ├── src/
 │   ├── main.tsx                        # App entry point — mounts React into #root
+│   ├── vite-env.d.ts                   # Vite type declarations
 │   ├── app/
 │   │   ├── App.tsx                     # Top-level router + route definitions
 │   │   ├── components/
@@ -130,28 +140,32 @@ INSURANCE/
 │   │   │   │   └── AIChatWidget.tsx    # Floating AI chat assistant
 │   │   │   ├── modals/
 │   │   │   │   └── TermsModal.tsx      # Terms & Conditions dialog (shown at signup)
+│   │   │   ├── figma/
+│   │   │   │   └── ImageWithFallback.tsx  # Image component with graceful fallback
 │   │   │   └── ui/                     # shadcn/Radix primitives (auto-generated, don't edit)
 │   │   └── pages/
 │   │       ├── Dashboard.tsx           # Portfolio overview, charts, AI insights
 │   │       ├── AuthPage.tsx            # Combined login + signup page
-│   │       ├── LandingPage.tsx         # Public marketing page
+│   │       ├── LandingPage.tsx         # Public marketing/home page
+│   │       ├── LearnMore.tsx           # Expanded feature explainer page
 │   │       ├── ComparePolicies.tsx     # Side-by-side policy comparison
 │   │       ├── WhatIfSimulator.tsx     # Adjust sliders, see premium change live
 │   │       ├── Reports.tsx             # Saved recommendation reports
 │   │       ├── SavedPlans.tsx          # Bookmarked insurance plans
 │   │       ├── Settings.tsx            # Account profile editing
 │   │       ├── HelpSupport.tsx         # FAQ + insurance glossary
+│   │       ├── Placeholders.tsx        # Stub pages for routes not yet built
 │   │       ├── Admin/
 │   │       │   └── AdminDashboard.tsx  # Admin analytics + user management
 │   │       └── NewRecommendation/
 │   │           ├── WizardLayout.tsx    # 6-step wizard — owns all shared state
 │   │           └── steps/
-│   │               ├── Step1_TypeSelection.tsx   # Pick insurance type
-│   │               ├── Step2_Details.tsx         # Personal + lifestyle data (4 tabs)
-│   │               ├── Step3_Scenario.tsx        # What matters most to the user
+│   │               ├── Step1_TypeSelection.tsx    # Pick insurance type
+│   │               ├── Step2_Details.tsx          # Personal + lifestyle data (4 tabs)
+│   │               ├── Step3_Scenario.tsx         # What matters most to the user
 │   │               ├── Step4_AIRecommendation.tsx # Groq LLM recommendation
-│   │               ├── Step5_Results.tsx         # Risk breakdown + score visual
-│   │               └── Step6_Report.tsx          # Final report + save/export
+│   │               ├── Step5_Results.tsx          # Risk breakdown + score visual
+│   │               └── Step6_Report.tsx           # Final report + save/export
 │   ├── auth/
 │   │   ├── Login.tsx                   # Standalone login stub
 │   │   └── Signup.tsx                  # Standalone signup stub
@@ -163,23 +177,24 @@ INSURANCE/
 │   │   │   └── insuranceTerms.ts       # Plain-English glossary (Premium, Waiting Period, etc.)
 │   │   └── engine/
 │   │       └── insuranceRiskEngine.ts  # 6-layer actuarial scoring engine
-│   └── styles/                         # Tailwind config, fonts, global theme
-├── backend/
-│   ├── main.py                         # FastAPI app entry point — mounts all routers
-│   ├── routes/
-│   │   ├── stats.py                    # numpy stats endpoint
-│   │   ├── policies.py                 # pandas DataFrame endpoint
-│   │   ├── risk.py                     # PyTorch RiskNet inference endpoint
-│   │   └── sentiment.py               # HuggingFace sentiment analysis endpoint
-│   ├── models/
-│   │   └── risk_net.py                 # RiskNet nn.Module class definition
-│   ├── schemas/
-│   │   └── requests.py                 # Pydantic request/response shapes
-│   └── requirements.txt                # Python dependencies
-├── .env                                # Secrets — never commit this (gitignored)
-├── .env.example                        # Template showing which env vars are needed
-├── .gitignore
-└── package.json
+│   └── styles/
+│       ├── index.css                   # Global base styles
+│       ├── tailwind.css                # Tailwind directives
+│       ├── fonts.css                   # Font-face declarations
+│       └── theme.css                   # CSS custom properties / colour tokens
+│
+└── backend/
+    ├── main.py                         # FastAPI app entry point — mounts all routers
+    ├── routes/
+    │   ├── stats.py                    # numpy stats endpoint
+    │   ├── policies.py                 # pandas DataFrame endpoint
+    │   ├── risk.py                     # PyTorch RiskNet inference endpoint
+    │   └── sentiment.py               # HuggingFace sentiment analysis endpoint
+    ├── models/
+    │   └── risk_net.py                 # RiskNet nn.Module class definition
+    ├── schemas/
+    │   └── requests.py                 # Pydantic request/response shapes
+    └── requirements.txt                # Python dependencies
 ```
 
 ---

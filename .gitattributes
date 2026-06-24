@@ -1,0 +1,12 @@
+# Normalise all text files to LF in the repo, convert to CRLF on Windows checkout.
+* text=auto
+
+# Force these to always be LF (scripts break with CRLF)
+*.sh text eol=lf
+*.py text eol=lf
+
+# Treat these as binary so Git never touches the line endings
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary
