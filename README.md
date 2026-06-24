@@ -121,12 +121,18 @@ Risk score bands:
 INSURANCE/
 ├── index.html                          # HTML shell — Vite injects the JS bundle here
 ├── vite.config.ts                      # Vite build config
+├── postcss.config.mjs                  # PostCSS config (used by Tailwind)
 ├── tsconfig.json                       # TypeScript compiler settings
 ├── package.json
 ├── pnpm-lock.yaml
+├── pnpm-workspace.yaml                 # pnpm workspace settings
 ├── .env                                # Secrets — never commit this (gitignored)
 ├── .env.example                        # Template showing which env vars are needed
 ├── .gitignore
+├── .gitattributes                      # Line ending rules (LF in repo, CRLF on Windows)
+├── ATTRIBUTIONS.md                     # Third-party library credits
+└── guidelines/
+    └── Guidelines.md                   # Project coding and contribution guidelines
 │
 ├── src/
 │   ├── main.tsx                        # App entry point — mounts React into #root
