@@ -1,3 +1,7 @@
+// Step 3 — asks the user what matters most to them (budget, coverage, speed, etc.)
+// The selected scenario is passed to the AI in Step 4 to re-rank policy recommendations.
+// Clicking a card directly moves to the next step — no separate confirm needed.
+
 import React from 'react';
 import { Wallet, ShieldCheck, Heart, Zap, AlertTriangle, Scale } from 'lucide-react';
 import clsx from 'clsx';

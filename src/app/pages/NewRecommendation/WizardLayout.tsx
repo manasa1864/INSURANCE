@@ -1,3 +1,7 @@
+// 6-step recommendation wizard — owns all shared state and passes it down to each step.
+// Steps: Type selection → Details form → Scenario priority → AI recommendation → Results → Report
+// State is lifted here so each step can read what the previous steps set.
+
 import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router';
 import { Check } from 'lucide-react';

@@ -1,7 +1,10 @@
+// Saved Plans page — shows all insurance plans the user has bookmarked.
+// Plans are stored in the saved_plans Supabase table and can be deleted here.
+
 import React, { useState, useEffect } from 'react';
 import { Search, Trash2, Eye, ShieldCheck, BookmarkX, CheckCircle, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/api/supabaseClient';
 
 type SavedPlan = {
   id: string;

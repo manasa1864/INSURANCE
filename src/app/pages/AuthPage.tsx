@@ -1,8 +1,12 @@
+// Combined login + signup page — the mode is set via ?mode=login or ?mode=signup in the URL.
+// Handles profile picture upload to Supabase Storage on signup.
+// Only accepts Gmail addresses — enforced client-side before the API call.
+
 import React, { useState, useRef } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import { Shield, Eye, EyeOff, Camera, User, X } from "lucide-react";
-import { supabase } from "../../lib/supabaseClient";
-import { TermsModal } from "../components/TermsModal";
+import { supabase } from "../../lib/api/supabaseClient";
+import { TermsModal } from "../components/modals/TermsModal";
 
 export const AuthPage = () => {
   const [searchParams] = useSearchParams();

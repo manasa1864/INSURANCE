@@ -1,3 +1,6 @@
+// Help & Support page — searchable FAQ, a live AI chat for insurance questions,
+// and a support ticket form. Also shows the full insurance glossary from insuranceTerms.
+
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Search, HelpCircle, MessageSquare, Plus, ChevronDown,
@@ -5,7 +8,7 @@ import {
   Phone, Mail, BookOpen, ChevronRight, Loader2, ThumbsUp,
   ThumbsDown, RotateCcw, Clock, Shield, Zap, BarChart2, Info
 } from 'lucide-react';
-import { insuranceTerms } from '../../lib/insuranceTerms';
+import { insuranceTerms } from '../../lib/data/insuranceTerms';
 
 /* ── Types ── */
 type ChatMessage = { role: 'user' | 'ai'; text: string; };

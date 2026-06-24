@@ -1,7 +1,11 @@
+// Public landing page — hero, features, how-it-works, footer.
+// Loads the 4 most recent signups from Supabase to show as social proof avatars.
+// No auth required — this is what visitors see before they sign up.
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { Shield, ChevronRight, CheckCircle, BarChart2, Zap } from 'lucide-react';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/api/supabaseClient';
 
 interface RecentUser {
   id: string;

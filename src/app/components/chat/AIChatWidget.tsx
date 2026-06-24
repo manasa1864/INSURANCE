@@ -1,12 +1,18 @@
+// Floating AI chat assistant — sits in a fixed portal so it hovers over every page.
+// On first open, it loads the user's portfolio from Supabase so the AI can give
+// personalised answers about their saved plans and risk scores.
+// Messages are sent to Groq (Llama 3.3 70B) via their OpenAI-compatible API.
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { MessageCircle, X, Send, Sparkles, Loader2, Bot, ChevronDown } from 'lucide-react';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../../lib/api/supabaseClient';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
+// shown on first open to give users a nudge on what to ask
 const SUGGESTIONS = [
   'What coverage am I missing?',
   'How can I reduce my premium?',
@@ -24,6 +30,7 @@ export const AIChatWidget = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // load saved plans + reports once so we can inject them into the system prompt
   useEffect(() => {
     const loadContext = async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -57,6 +64,7 @@ export const AIChatWidget = () => {
     loadContext();
   }, []);
 
+  // send a greeting when the widget opens for the first time
   useEffect(() => {
     if (open && messages.length === 0) {
       setMessages([{
@@ -69,6 +77,7 @@ export const AIChatWidget = () => {
     }
   }, [open]);
 
+  // auto-scroll to latest message
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
@@ -137,7 +146,7 @@ export const AIChatWidget = () => {
           className="fixed bottom-24 right-6 z-50 flex flex-col bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden"
           style={{ width: 360, height: 500 }}
         >
-          {/* Header */}
+          {/* Chat header */}
           <div className="bg-gradient-to-r from-slate-900 to-blue-900 px-4 py-3 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2.5">
               <div className="bg-blue-500/20 p-1.5 rounded-lg">
@@ -158,7 +167,7 @@ export const AIChatWidget = () => {
             </button>
           </div>
 
-          {/* Messages */}
+          {/* Message list */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50">
             {messages.map((msg, i) => (
               <div key={i} className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -179,6 +188,7 @@ export const AIChatWidget = () => {
               </div>
             ))}
 
+            {/* typing indicator */}
             {loading && (
               <div className="flex gap-2 justify-start">
                 <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
@@ -196,7 +206,7 @@ export const AIChatWidget = () => {
             <div ref={bottomRef} />
           </div>
 
-          {/* Suggestions (show only on first message) */}
+          {/* Quick suggestions — only on first message so they don't get annoying */}
           {messages.length === 1 && !loading && (
             <div className="px-3 pb-2 flex flex-wrap gap-1.5 bg-slate-50 shrink-0">
               {SUGGESTIONS.map(s => (
@@ -211,7 +221,7 @@ export const AIChatWidget = () => {
             </div>
           )}
 
-          {/* Input */}
+          {/* Input bar */}
           <div className="p-3 border-t border-slate-200 bg-white shrink-0">
             <div className="flex gap-2">
               <input
@@ -240,10 +250,7 @@ export const AIChatWidget = () => {
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#1E64FF] text-white rounded-full shadow-lg shadow-blue-500/30 hover:bg-blue-700 transition-all hover:scale-105 flex items-center justify-center"
         title="Chat with PolicyWise AI"
       >
-        {open
-          ? <X className="w-6 h-6" />
-          : <MessageCircle className="w-6 h-6" />
-        }
+        {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
       </button>
     </>
   );

@@ -1,9 +1,16 @@
+// Step 2 — the main data collection form, split into 4 sub-tabs:
+//   Personal Profile → Type-specific Details → Preferences (sum insured + add-ons) → Review
+//
+// The risk engine runs on every keystroke (via useWatch) so the sidebar score
+// updates in real time as the user fills things in.
+// Each insurance type has its own required-fields list for tab-level validation.
+
 import React, { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { ChevronLeft, ChevronRight, Info, X, AlertCircle } from 'lucide-react';
 import clsx from 'clsx';
-import { calculateInsuranceRisk } from '../../../../lib/insuranceRiskEngine';
-import { insuranceTerms } from '../../../../lib/insuranceTerms';
+import { calculateInsuranceRisk } from '../../../../lib/engine/insuranceRiskEngine';
+import { insuranceTerms } from '../../../../lib/data/insuranceTerms';
 
 interface Step2Props {
   insuranceType: string;

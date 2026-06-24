@@ -1,10 +1,14 @@
+// What-If Simulator — lets users tweak sliders (age, BMI, smoking, coverage, etc.)
+// and see how the estimated premium changes in real time.
+// AI can explain the impact of each change when prompted.
+
 import React, { useState, useEffect } from 'react';
 import {
   SlidersHorizontal, RotateCcw, Save, Zap, TrendingDown, Info,
   Sparkles, Loader2, ChevronDown, AlertCircle, CheckCircle2,
   IndianRupee, Shield, TrendingUp, Activity, Download
 } from 'lucide-react';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/api/supabaseClient';
 
 /* ── Types ── */
 type SavedPlan = {

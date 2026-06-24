@@ -1,3 +1,6 @@
+// Step 1 — lets the user pick which insurance type they want.
+// Selecting a card immediately advances to step 2 (no separate "Next" button needed).
+
 import React from 'react';
 import { 
   Heart, User, Car, Plane, Home, Briefcase, 

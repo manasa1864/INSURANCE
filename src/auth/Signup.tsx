@@ -1,5 +1,8 @@
+// Minimal signup stub — the full signup flow (with profile photo upload) is in AuthPage.tsx.
+// This is a lightweight version kept here for isolated testing or embedding elsewhere.
+
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../lib/api/supabaseClient";
 
 export default function Signup() {
   const [email, setEmail] = useState("");

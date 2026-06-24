@@ -1,3 +1,7 @@
+// Plain-English definitions of common insurance jargon.
+// Shown in the Step 2 sidebar so users understand what they're filling in.
+// Each entry has a short definition + a real-world example.
+
 export const insuranceTerms: Record<string, { title: string; plain: string; example: string }> = {
   'Premium': {
     title: 'Premium',
@@ -31,7 +35,7 @@ export const insuranceTerms: Record<string, { title: string; plain: string; exam
   },
   'NCB': {
     title: 'No Claim Bonus (NCB)',
-    plain: 'A discount you get on renewal premium for every year you don\'t make a claim.',
+    plain: "A discount you get on renewal premium for every year you don't make a claim.",
     example: 'Example: After 3 claim-free years, your vehicle insurance premium reduces by 30%.',
   },
   'Exclusions': {
@@ -41,8 +45,8 @@ export const insuranceTerms: Record<string, { title: string; plain: string; exam
   },
   'Cashless Claim': {
     title: 'Cashless Claim',
-    plain: 'You get treated at a network hospital without paying upfront — the insurer settles the bill directly.',
-    example: 'Example: Admitted to Apollo (network hospital)? Your insurer pays the hospital directly. You pay nothing at discharge (except co-pay if any).',
+    plain: "You get treated at a network hospital without paying upfront — the insurer settles the bill directly.",
+    example: "Example: Admitted to Apollo (network hospital)? Your insurer pays the hospital directly. You pay nothing at discharge (except co-pay if any).",
   },
   'Claim Settlement Ratio': {
     title: 'Claim Settlement Ratio (CSR)',

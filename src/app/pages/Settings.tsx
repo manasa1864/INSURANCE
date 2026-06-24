@@ -1,10 +1,13 @@
+// Settings page — account profile editing, password change, notification prefs,
+// and account deletion. All user data updates go through Supabase auth.
+
 import React, { useState, useEffect, useRef } from 'react';
 import {
   User, Settings as SettingsIcon, Shield, Bell, Moon,
   Smartphone, Upload, LogOut, Trash2, CheckCircle2,
   AlertCircle, Loader2, Eye, EyeOff, Camera, X
 } from 'lucide-react';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/api/supabaseClient';
 import { useNavigate } from 'react-router';
 
 /* ── Types ── */

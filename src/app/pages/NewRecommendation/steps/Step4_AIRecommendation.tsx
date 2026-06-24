@@ -1,3 +1,10 @@
+// Step 4 — sends the user's full profile to Groq (Llama 3.3 70B) and displays
+// a deep, personalised recommendation with 3 ranked policies, pros/cons,
+// tax benefits, claim tips, and a comparison table.
+//
+// The prompt is built in buildDetailedPrompt() at the bottom of this file.
+// Results are shown across 3 tabs: Overview · Policy Details · Compare
+
 import React, { useEffect, useState } from 'react';
 import {
   Sparkles, AlertCircle, RefreshCw, ShieldCheck, TrendingUp,

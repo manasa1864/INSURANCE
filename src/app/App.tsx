@@ -1,6 +1,10 @@
+// Top-level router — defines all routes and which ones need the authenticated layout shell.
+// Public pages (landing, auth, learn-more, admin) render on their own.
+// Everything inside <Layout /> is a protected route that requires login.
+
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
-import { Layout } from './components/Layout';
+import { Layout } from './components/layout/Layout';
 import { LandingPage } from './pages/LandingPage';
 import { AuthPage } from './pages/AuthPage';
 import { Dashboard } from './pages/Dashboard';

@@ -1,5 +1,8 @@
+// Minimal login stub — the full login UI lives in AuthPage.tsx.
+// This file exists as a standalone component if you ever need it outside the wizard.
+
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../lib/api/supabaseClient";
 
 export default function Login() {
   const [email, setEmail] = useState("");

@@ -1,8 +1,11 @@
+// Step 5 — shows a visual risk breakdown (bar chart + score) and lets the user
+// save a policy plan to Supabase. Displays the AI recommendation from Step 4.
+
 import React, { useState } from "react";
 import { BarChart2, AlertCircle, CheckCircle, Info, X, Sparkles, BookmarkPlus, Check, Loader2 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from "recharts";
 import clsx from "clsx";
-import { supabase } from "../../../../lib/supabaseClient";
+import { supabase } from "../../../../lib/api/supabaseClient";
 
 interface Step5Props {
   onNext: () => void;

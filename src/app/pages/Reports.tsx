@@ -1,7 +1,10 @@
+// Reports page — lists all saved recommendation reports for the logged-in user.
+// Each report can be viewed in detail or deleted. Data is fetched from Supabase on mount.
+
 import React, { useState, useEffect } from 'react';
 import { FileText, Download, Trash2, Eye, MoreHorizontal, Plus, Loader2, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/api/supabaseClient';
 
 type Report = {
   id: string;

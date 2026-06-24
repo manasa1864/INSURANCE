@@ -1,14 +1,14 @@
 # PolicyWise AI — Insurance Recommendation Platform
 
-An intelligent insurance advisory platform that calculates personalised risk scores and recommends policies across 12 insurance categories using a multi-layer actuarial engine.
+An intelligent insurance advisory platform that calculates personalised risk scores and recommends policies across 15 insurance categories using a multi-layer actuarial engine.
 
 ---
 
 ## What It Does
 
-- **Risk Assessment** — scores a user's risk across 12 insurance types using weighted actuarial factors and interaction effects
+- **Risk Assessment** — scores a user's risk across 15 insurance types using weighted actuarial factors and interaction effects
 - **AI Recommendations** — Groq-powered LLM suggests best-fit policies based on the user's profile
-- **AI Chat Widget** — conversational assistant for insurance queries
+- **AI Chat Widget** — conversational assistant that floats over every page for quick insurance queries
 - **What-If Simulator** — lets users adjust parameters and see how their premium changes in real time
 - **Policy Comparison** — side-by-side comparison of multiple insurance plans
 - **Reports & Saved Plans** — users can save, export, and revisit their recommendations
@@ -26,12 +26,15 @@ An intelligent insurance advisory platform that calculates personalised risk sco
 | 4 | Travel | Destination, trip duration, medical conditions, activities |
 | 5 | Home | Property age, construction type, flood/seismic zone |
 | 6 | Business | Business type, employees, turnover, business maturity |
-| 7 | Accident | Occupation hazard, motorcycle use, adventure sports |
+| 7 | Personal Accident | Occupation hazard, motorcycle use, adventure sports |
 | 8 | Critical Illness | Family disease history, current health, exercise habits |
 | 9 | Education | Child age, target institution, cost, years to plan |
 | 10 | Crop | Crop type, irrigation method, season, soil quality |
 | 11 | Gadget | Gadget value/age, invoice availability, usage pattern |
 | 12 | Pet | Pet age, vaccination status, breed, vet frequency |
+| 13 | Cyber | Online activity, data sensitivity, security practices |
+| 14 | Fire | Property type, fire safety measures, material of construction |
+| 15 | Marine | Cargo type, route, vessel age, shipping frequency |
 
 ---
 
@@ -88,14 +91,14 @@ An intelligent insurance advisory platform that calculates personalised risk sco
 
 ## Risk Engine Architecture
 
-The core engine ([src/lib/insuranceRiskEngine.ts](src/lib/insuranceRiskEngine.ts)) runs entirely in the browser with no server call:
+The core engine ([src/lib/engine/insuranceRiskEngine.ts](src/lib/engine/insuranceRiskEngine.ts)) runs entirely in the browser — no server call needed:
 
 ```
-Layer 1 — Base Scoring        Each factor scored 0–100 from actuarial tables
+Layer 1 — Base Scoring         Each factor scored 0–100 from actuarial tables
 Layer 2 — Interaction Effects  Compound penalties (e.g. Smoker + Diabetes + Age > 50)
 Layer 3 — Weighted Aggregation Weights sum to 1.0, based on IRDAI/LIC tables
 Layer 4 — Sigmoid Normalisation Smooth output curve, no hard cliffs
-Layer 5 — Coverage Scaling    Final cost scaled by desired sum insured
+Layer 5 — Coverage Scaling     Final cost scaled by desired sum insured
 Layer 6 — Regional Adjustment  Metro / Tier-2 / Rural cost adjustment by PIN code
 ```
 
@@ -117,28 +120,65 @@ Risk score bands:
 ```
 INSURANCE/
 ├── src/
+│   ├── main.tsx                        # App entry point — mounts React into #root
 │   ├── app/
-│   │   ├── components/       # Shared UI (Layout, AIChatWidget, TermsModal)
-│   │   ├── pages/
-│   │   │   ├── NewRecommendation/   # 6-step recommendation wizard
-│   │   │   │   └── steps/           # Step1–Step6 (type → details → risk → AI → results → report)
-│   │   │   ├── Admin/               # AdminDashboard
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── ComparePolicies.tsx
-│   │   │   ├── WhatIfSimulator.tsx
-│   │   │   ├── Reports.tsx
-│   │   │   ├── SavedPlans.tsx
-│   │   │   └── Settings.tsx
-│   ├── auth/                 # Login, Signup
+│   │   ├── App.tsx                     # Top-level router + route definitions
+│   │   ├── components/
+│   │   │   ├── layout/
+│   │   │   │   └── Layout.tsx          # Sidebar + sticky header + page outlet
+│   │   │   ├── chat/
+│   │   │   │   └── AIChatWidget.tsx    # Floating AI chat assistant
+│   │   │   ├── modals/
+│   │   │   │   └── TermsModal.tsx      # Terms & Conditions dialog (shown at signup)
+│   │   │   └── ui/                     # shadcn/Radix primitives (auto-generated, don't edit)
+│   │   └── pages/
+│   │       ├── Dashboard.tsx           # Portfolio overview, charts, AI insights
+│   │       ├── AuthPage.tsx            # Combined login + signup page
+│   │       ├── LandingPage.tsx         # Public marketing page
+│   │       ├── ComparePolicies.tsx     # Side-by-side policy comparison
+│   │       ├── WhatIfSimulator.tsx     # Adjust sliders, see premium change live
+│   │       ├── Reports.tsx             # Saved recommendation reports
+│   │       ├── SavedPlans.tsx          # Bookmarked insurance plans
+│   │       ├── Settings.tsx            # Account profile editing
+│   │       ├── HelpSupport.tsx         # FAQ + insurance glossary
+│   │       ├── Admin/
+│   │       │   └── AdminDashboard.tsx  # Admin analytics + user management
+│   │       └── NewRecommendation/
+│   │           ├── WizardLayout.tsx    # 6-step wizard — owns all shared state
+│   │           └── steps/
+│   │               ├── Step1_TypeSelection.tsx   # Pick insurance type
+│   │               ├── Step2_Details.tsx         # Personal + lifestyle data (4 tabs)
+│   │               ├── Step3_Scenario.tsx        # What matters most to the user
+│   │               ├── Step4_AIRecommendation.tsx # Groq LLM recommendation
+│   │               ├── Step5_Results.tsx         # Risk breakdown + score visual
+│   │               └── Step6_Report.tsx          # Final report + save/export
+│   ├── auth/
+│   │   ├── Login.tsx                   # Standalone login stub
+│   │   └── Signup.tsx                  # Standalone signup stub
 │   ├── lib/
-│   │   ├── insuranceRiskEngine.ts   # Core actuarial engine (12 insurance types)
-│   │   └── supabaseClient.ts        # Supabase client setup
-│   └── styles/               # Tailwind, fonts, theme
+│   │   ├── api/
+│   │   │   └── supabaseClient.ts       # Shared Supabase instance (one client, whole app)
+│   │   ├── data/
+│   │   │   ├── insuranceTypes.ts       # 15 type configs + colour maps
+│   │   │   └── insuranceTerms.ts       # Plain-English glossary (Premium, Waiting Period, etc.)
+│   │   └── engine/
+│   │       └── insuranceRiskEngine.ts  # 6-layer actuarial scoring engine
+│   └── styles/                         # Tailwind config, fonts, global theme
 ├── backend/
-│   ├── main.py               # FastAPI app (numpy / pandas / pytorch / HuggingFace endpoints)
-│   └── requirements.txt      # Python dependencies
-├── .env                      # Secrets (gitignored)
-├── .env.example              # Template for required env vars
+│   ├── main.py                         # FastAPI app entry point — mounts all routers
+│   ├── routes/
+│   │   ├── stats.py                    # numpy stats endpoint
+│   │   ├── policies.py                 # pandas DataFrame endpoint
+│   │   ├── risk.py                     # PyTorch RiskNet inference endpoint
+│   │   └── sentiment.py               # HuggingFace sentiment analysis endpoint
+│   ├── models/
+│   │   └── risk_net.py                 # RiskNet nn.Module class definition
+│   ├── schemas/
+│   │   └── requests.py                 # Pydantic request/response shapes
+│   └── requirements.txt                # Python dependencies
+├── .env                                # Secrets — never commit this (gitignored)
+├── .env.example                        # Template showing which env vars are needed
+├── .gitignore
 └── package.json
 ```
 
@@ -150,7 +190,7 @@ INSURANCE/
 
 - Node.js 18+
 - pnpm (`npm install -g pnpm`)
-- Python 3.10+ (only for the backend)
+- Python 3.10+ (only needed for the backend)
 
 ### 1. Clone and install
 
@@ -177,13 +217,15 @@ Open **http://localhost:5173**
 
 ### 4. Run the Python backend (optional)
 
+The frontend runs fine without the backend — the heavy ML work (risk scoring, TensorFlow, HuggingFace) runs in the browser. The backend adds server-side numpy/pandas/PyTorch endpoints if you need them.
+
 ```bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-Open **http://localhost:8000/docs** for interactive API docs.
+Open **http://localhost:8000/docs** for the interactive API docs (Swagger UI).
 
 ---
 
@@ -194,3 +236,5 @@ Open **http://localhost:8000/docs** for interactive API docs.
 | `VITE_SUPABASE_URL` | Supabase Dashboard → Settings → API |
 | `VITE_SUPABASE_ANON_KEY` | Supabase Dashboard → Settings → API |
 | `VITE_GROQ_API_KEY` | console.groq.com/keys |
+
+> **Never commit `.env`** — it contains live credentials. The `.gitignore` already excludes it, but double-check before your first push.

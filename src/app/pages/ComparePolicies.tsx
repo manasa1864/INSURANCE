@@ -1,10 +1,13 @@
+// Compare Policies page — loads the user's saved plans and lets them pick
+// 2–3 to compare side-by-side. AI generates a comparison summary via Groq.
+
 import React, { useState, useEffect } from 'react';
 import {
   Scale, Download, ArrowRightLeft, Check, X,
   AlertCircle, FileText, Sparkles, RefreshCw,
   TrendingUp, IndianRupee, Shield, Loader2, ChevronDown
 } from 'lucide-react';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/api/supabaseClient';
 
 /* ── Types ── */
 type SavedPlan = {

@@ -1,3 +1,7 @@
+// Main dashboard — shows portfolio stats, premium trend chart, AI insights, and coverage gaps.
+// Data comes from two Supabase tables: saved_plans and reports.
+// AI insight + coverage gap analysis are fetched from Groq once Supabase data has loaded.
+
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   Shield, TrendingUp, AlertTriangle, Clock, ChevronRight, Activity,
@@ -7,7 +11,7 @@ import {
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../lib/api/supabaseClient';
 import { useNavigate } from 'react-router';
 
 interface CoverageGap {

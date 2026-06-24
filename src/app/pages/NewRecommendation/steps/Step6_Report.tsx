@@ -1,7 +1,10 @@
+// Step 6 — final step. Generates a report summary and saves it to Supabase.
+// The user can download a PDF or navigate directly to their Reports page.
+
 import React, { useState } from 'react';
 import { FileText, Download, CheckCircle2, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import clsx from 'clsx';
-import { supabase } from '../../../../lib/supabaseClient';
+import { supabase } from '../../../../lib/api/supabaseClient';
 
 interface Step6Props {
   onNext: () => void;

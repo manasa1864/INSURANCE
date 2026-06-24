@@ -26,8 +26,17 @@ backend/models/
 .DS_Store
 Thumbs.db
 
-# ── IDE ───────────────────────────────────────────
+# ── Editor / IDE ──────────────────────────────────
 .vscode/
 .idea/
 *.suo
 *.user
+
+# ── Logs ──────────────────────────────────────────
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ── Vite / build cache ────────────────────────────
+.vite/
+*.local
